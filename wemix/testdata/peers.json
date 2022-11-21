@@ -1,0 +1,74 @@
+[
+    {
+        "enode": "enode://dc9c30053d98e55fe61bb2ef37d2f1be340bd295aa413749d0d6c76618050a358e2c737a904b2a472e6988322cffaebc8598fa59a9e19db99f1944ce1ebbbf89@52.68.113.68:8589",
+        "id": "30a7e74a861b54d40b5dc02a4aebdb5c5575dc5bba312873c763b4a8b5b7195d",
+        "name": "Gwemix/v0.9.7-stable-ff365d19/linux-amd64/go1.12",
+        "caps": [
+            "wemix/63",
+            "wemix/64",
+            "wemix/65"
+        ],
+        "network": {
+            "localAddress": "172.31.22.131:58852",
+            "remoteAddress": "52.68.113.68:8589",
+            "inbound": false,
+            "trusted": false,
+            "static": true
+        },
+        "protocols": {
+            "wemix": {
+                "version": 65,
+                "difficulty": 19554721,
+                "head": "0x516ceed303d27630458c8ec8101132e72e1e01d2be0322c23618cd16fcfebb22"
+            }
+        }
+    },
+    {
+        "enode": "enode://ce46b336757daf253ed7a89efa0f83af06cc37e01c14bc156e46557087a184567a67d20ef40b00f06c28953611b9b271c303039341f700dba5d3f5fd63f66d27@52.196.252.240:8589",
+        "id": "6b610d07d18d143a6c05de57fcccb06cb973efd29b1e6bce1b1629cbe342984a",
+        "name": "Gwemix/v0.9.7-stable-ff365d19/linux-amd64/go1.12",
+        "caps": [
+            "wemix/63",
+            "wemix/64",
+            "wemix/65"
+        ],
+        "network": {
+            "localAddress": "172.31.22.131:47680",
+            "remoteAddress": "52.196.252.240:8589",
+            "inbound": false,
+            "trusted": false,
+            "static": true
+        },
+        "protocols": {
+            "wemix": {
+                "version": 65,
+                "difficulty": 19554727,
+                "head": "0xe792cc88f659a4dae075de7e3ab7eca2ef8fc0eb83ecaf694552b87a3fc333fb"
+            }
+        }
+    },
+    {
+        "enode": "enode://a6d0067ef52e41e30e6417ba3fa15fdfcc820c47f0932eac6a659cdf9306443bbcd900e74710fbedd3c1cb50b4ef940fc944130345e7786816c1a8a14cda5aba@54.250.11.170:8589",
+        "id": "9b24b745e6d184ee97398a3af1a764132cf9ad9f0c5f9defd7a50e20eddcad6c",
+        "name": "Gwemix/v0.9.7-stable-ff365d19/linux-amd64/go1.12",
+        "caps": [
+            "wemix/63",
+            "wemix/64",
+            "wemix/65"
+        ],
+        "network": {
+            "localAddress": "172.31.22.131:53998",
+            "remoteAddress": "54.250.11.170:8589",
+            "inbound": false,
+            "trusted": false,
+            "static": true
+        },
+        "protocols": {
+            "wemix": {
+                "version": 65,
+                "difficulty": 19554727,
+                "head": "0xe792cc88f659a4dae075de7e3ab7eca2ef8fc0eb83ecaf694552b87a3fc333fb"
+            }
+        }
+    }
+]

@@ -1,0 +1,102 @@
+{
+  "block": {
+    "block_identifier": {
+        "index": 10992,
+        "hash": "0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02"
+    },
+    "parent_block_identifier": {
+        "index": 10991,
+        "hash": "0xe3c3eedb37daa199fe9c82efd77a57da427ff99cfa2ed001db189fc9746abb78"
+    },
+    "timestamp": 1552946974000,
+    "transactions": [{
+        "transaction_identifier": {
+            "hash": "0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02"
+        },
+        "operations": [
+          {
+            "operation_identifier": {
+                "index": 0
+            },
+            "type": "BLOCK_REWARD",
+            "status": "SUCCESS",
+            "account": {
+                "address": "0x378360d4f25E6377f3da53F8cF09e9a258118528"
+            },
+            "amount": {
+                "value": "0",
+                "currency": {
+                    "symbol": "WEMIX",
+                    "decimals": 18
+                }
+            }
+          }, {
+            "operation_identifier": {
+              "index": 1
+            },
+            "type": "BLOCK_REWARD",
+            "status": "SUCCESS",
+            "account": {
+              "address": "0xC03B19F95D409c26b64B44292827a26989D2E8d0"
+            },
+            "amount": {
+              "value": "0",
+              "currency": {
+                "symbol": "WEMIX",
+                "decimals": 18
+              }
+            }
+          }, {
+            "operation_identifier": {
+              "index": 2
+            },
+            "type": "BLOCK_REWARD",
+            "status": "SUCCESS",
+            "account": {
+              "address": "0xcFFf678CAfa652227c7A98ec6BcBFba0E3d1da19"
+            },
+            "amount": {
+              "value": "0",
+              "currency": {
+                "symbol": "WEMIX",
+                "decimals": 18
+              }
+            }
+          }, {
+            "operation_identifier": {
+              "index": 3
+            },
+            "type": "BLOCK_REWARD",
+            "status": "SUCCESS",
+            "account": {
+              "address": "0xfc3A75dFd172b4611d9c52B0E4C66c2a9125452c"
+            },
+            "amount": {
+              "value": "0",
+              "currency": {
+                "symbol": "WEMIX",
+                "decimals": 18
+              }
+            }
+          }, {
+            "operation_identifier": {
+              "index": 4
+            },
+            "type": "BLOCK_REWARD",
+            "status": "SUCCESS",
+            "account": {
+              "address": "0x6d468562ea67EAaC6ABBC96928D70b365C2D664a"
+            },
+            "amount": {
+              "value": "0",
+              "currency": {
+                "symbol": "WEMIX",
+                "decimals": 18
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
