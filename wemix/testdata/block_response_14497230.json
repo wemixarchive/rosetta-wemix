@@ -2,7 +2,7 @@
   "block": {
     "block_identifier": {
         "index": 14497230,
-        "hash": "0x54849b67df3390cec858b4a77b1d4dc818ac6854a76950854cce8b871a1f117a"
+        "hash": "0xacccbfcbe791d0e15c6797ccc72d1f6bb0948d3bc6f738f38dd642c323513b0d"
     },
     "parent_block_identifier": {
         "index": 14497229,
@@ -11,7 +11,7 @@
     "timestamp": 1625117278000,
     "transactions": [{
       "transaction_identifier": {
-          "hash": "0x54849b67df3390cec858b4a77b1d4dc818ac6854a76950854cce8b871a1f117a"
+          "hash": "0xacccbfcbe791d0e15c6797ccc72d1f6bb0948d3bc6f738f38dd642c323513b0d"
       },
       "operations": [{
           "operation_identifier": {
@@ -114,19 +114,42 @@
               "decimals": 18
             }
           }
-        }],
+        },
+          {
+            "operation_identifier": {
+              "index": 1
+            },
+            "related_operations": [
+              {
+                "index": 0
+              }
+            ],
+            "type": "FEE",
+            "status": "SUCCESS",
+            "account": {
+              "address": "0x378360d4f25E6377f3da53F8cF09e9a258118528"
+            },
+            "amount": {
+              "value": "3591280000000000",
+              "currency": {
+                "symbol": "WEMIX",
+                "decimals": 18
+              }
+            }
+          }
+        ],
         "metadata":{
           "gas_limit": "0xaf5b",
           "gas_price": "0x12a05f2000",
           "receipt": {
-            "blockHash": "0x54849b67df3390cec858b4a77b1d4dc818ac6854a76950854cce8b871a1f117a",
+            "blockHash": "0xacccbfcbe791d0e15c6797ccc72d1f6bb0948d3bc6f738f38dd642c323513b0d",
             "blockNumber": "0xdd35ce",
             "contractAddress": "0x0000000000000000000000000000000000000000",
             "cumulativeGasUsed": "0xaf5b",
             "gasUsed": "0xaf5b",
             "logs": [{
               "address": "0x4b8d211c9c997079c3cf47c5010071b328af9515",
-              "blockHash": "0x54849b67df3390cec858b4a77b1d4dc818ac6854a76950854cce8b871a1f117a",
+              "blockHash": "0xacccbfcbe791d0e15c6797ccc72d1f6bb0948d3bc6f738f38dd642c323513b0d",
               "blockNumber": "0xdd35ce",
               "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
               "logIndex": "0x0",

@@ -540,7 +540,7 @@ func TestBalance(t *testing.T) {
 			block(){
 				hash
 				number
-				account(address:"0x098cE27428a8fe633f1177f8253Ea789894d8aDf"){
+				account(address:"0x2f93B2f047E05cdf602820Ac4B3178efc2b43D55"){
 					balance
 					transactionCount
 					code
@@ -555,10 +555,11 @@ func TestBalance(t *testing.T) {
 	resp, err := c.Balance(
 		ctx,
 		&RosettaTypes.AccountIdentifier{
-			Address: "0x098cE27428a8fe633f1177f8253Ea789894d8aDf",
+			Address: "0x2f93B2f047E05cdf602820Ac4B3178efc2b43D55",
 		},
 		nil,
 	)
+
 	assert.Equal(t, &RosettaTypes.AccountBalanceResponse{
 		BlockIdentifier: &RosettaTypes.BlockIdentifier{
 			Hash:  "0xb72ccf3ec2617015c9c3751c66a4918a7fd9a0d1667ac7cadb1601a6f442889d",
@@ -572,7 +573,7 @@ func TestBalance(t *testing.T) {
 		},
 		Metadata: map[string]interface{}{
 			"code":  "0x",
-			"nonce": int64(74),
+			"nonce": int64(0),
 		},
 	}, resp)
 	assert.NoError(t, err)
@@ -603,7 +604,7 @@ func TestBalance_Historical_Hash(t *testing.T) {
 			block(hash: "0xb72ccf3ec2617015c9c3751c66a4918a7fd9a0d1667ac7cadb1601a6f442889d"){
 				hash
 				number
-				account(address:"0x098cE27428a8fe633f1177f8253Ea789894d8aDf"){
+				account(address:"0x2f93B2f047E05cdf602820Ac4B3178efc2b43D55"){
 					balance
 					transactionCount
 					code
@@ -618,7 +619,7 @@ func TestBalance_Historical_Hash(t *testing.T) {
 	resp, err := c.Balance(
 		ctx,
 		&RosettaTypes.AccountIdentifier{
-			Address: "0x098cE27428a8fe633f1177f8253Ea789894d8aDf",
+			Address: "0x2f93B2f047E05cdf602820Ac4B3178efc2b43D55",
 		},
 		&RosettaTypes.PartialBlockIdentifier{
 			Hash: RosettaTypes.String(
@@ -640,7 +641,7 @@ func TestBalance_Historical_Hash(t *testing.T) {
 		},
 		Metadata: map[string]interface{}{
 			"code":  "0x",
-			"nonce": int64(74),
+			"nonce": int64(0),
 		},
 	}, resp)
 	assert.NoError(t, err)
@@ -671,7 +672,7 @@ func TestBalance_Historical_Index(t *testing.T) {
 			block(number: 19388485){
 				hash
 				number
-				account(address:"0x098cE27428a8fe633f1177f8253Ea789894d8aDf"){
+				account(address:"0x2f93B2f047E05cdf602820Ac4B3178efc2b43D55"){
 					balance
 					transactionCount
 					code
@@ -686,7 +687,7 @@ func TestBalance_Historical_Index(t *testing.T) {
 	resp, err := c.Balance(
 		ctx,
 		&RosettaTypes.AccountIdentifier{
-			Address: "0x098cE27428a8fe633f1177f8253Ea789894d8aDf",
+			Address: "0x2f93B2f047E05cdf602820Ac4B3178efc2b43D55",
 		},
 		&RosettaTypes.PartialBlockIdentifier{
 			Index: RosettaTypes.Int64(19388485),
@@ -705,7 +706,7 @@ func TestBalance_Historical_Index(t *testing.T) {
 		},
 		Metadata: map[string]interface{}{
 			"code":  "0x",
-			"nonce": int64(74),
+			"nonce": int64(0),
 		},
 	}, resp)
 	assert.NoError(t, err)
@@ -1259,7 +1260,7 @@ func TestBlock_Current(t *testing.T) {
 		ctx,
 		mock.Anything,
 		"debug_traceBlockByHash",
-		common.HexToHash("0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02"),
+		common.HexToHash("0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd"),
 		tc,
 	).Return(
 		nil,
@@ -1268,7 +1269,7 @@ func TestBlock_Current(t *testing.T) {
 			r := args.Get(1).(*json.RawMessage)
 
 			file, err := ioutil.ReadFile(
-				"testdata/block_trace_0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02.json",
+				"testdata/block_trace_0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd.json",
 			) // nolint
 			assert.NoError(t, err)
 
@@ -1314,7 +1315,7 @@ func TestBlock_Hash(t *testing.T) {
 		ctx,
 		mock.Anything,
 		"eth_getBlockByHash",
-		"0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02",
+		"0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd",
 		true,
 	).Return(
 		nil,
@@ -1333,7 +1334,7 @@ func TestBlock_Hash(t *testing.T) {
 		ctx,
 		mock.Anything,
 		"debug_traceBlockByHash",
-		common.HexToHash("0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02"),
+		common.HexToHash("0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd"),
 		tc,
 	).Return(
 		nil,
@@ -1342,7 +1343,7 @@ func TestBlock_Hash(t *testing.T) {
 			r := args.Get(1).(*json.RawMessage)
 
 			file, err := ioutil.ReadFile(
-				"testdata/block_trace_0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02.json",
+				"testdata/block_trace_0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd.json",
 			) // nolint
 			assert.NoError(t, err)
 
@@ -1359,7 +1360,7 @@ func TestBlock_Hash(t *testing.T) {
 		ctx,
 		&RosettaTypes.PartialBlockIdentifier{
 			Hash: RosettaTypes.String(
-				"0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02",
+				"0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd",
 			),
 		},
 	)
@@ -1409,7 +1410,7 @@ func TestBlock_Index(t *testing.T) {
 		ctx,
 		mock.Anything,
 		"debug_traceBlockByHash",
-		common.HexToHash("0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02"),
+		common.HexToHash("0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd"),
 		tc,
 	).Return(
 		nil,
@@ -1418,7 +1419,7 @@ func TestBlock_Index(t *testing.T) {
 			r := args.Get(1).(*json.RawMessage)
 
 			file, err := ioutil.ReadFile(
-				"testdata/block_trace_0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02.json",
+				"testdata/block_trace_0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd.json",
 			) // nolint
 			assert.NoError(t, err)
 
@@ -1701,7 +1702,7 @@ func TestBlock_14497230(t *testing.T) {
 		ctx,
 		mock.Anything,
 		"debug_traceBlockByHash",
-		common.HexToHash("0x54849b67df3390cec858b4a77b1d4dc818ac6854a76950854cce8b871a1f117a"),
+		common.HexToHash("0xacccbfcbe791d0e15c6797ccc72d1f6bb0948d3bc6f738f38dd642c323513b0d"),
 		tc,
 	).Return(
 		nil,
@@ -1710,7 +1711,7 @@ func TestBlock_14497230(t *testing.T) {
 			r := args.Get(1).(*json.RawMessage)
 
 			file, err := ioutil.ReadFile(
-				"testdata/block_trace_0x54849b67df3390cec858b4a77b1d4dc818ac6854a76950854cce8b871a1f117a.json",
+				"testdata/block_trace_0xacccbfcbe791d0e15c6797ccc72d1f6bb0948d3bc6f738f38dd642c323513b0d.json",
 			) // nolint
 			assert.NoError(t, err)
 
@@ -1760,8 +1761,10 @@ func TestBlock_14497230(t *testing.T) {
 
 	// Ensure types match
 	jsonResp, err := jsonifyBlock(resp)
-	tmp, _ := json.Marshal(resp)
+	tmp, _ := json.Marshal(jsonResp)
+	tmp2, _ := json.Marshal(correctResp.Block)
 	t.Log("resp :", string(tmp))
+	t.Log("tmp2 :", string(tmp2))
 	assert.NoError(t, err)
 	assert.Equal(t, correctResp.Block, jsonResp)
 

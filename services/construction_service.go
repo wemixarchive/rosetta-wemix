@@ -385,7 +385,6 @@ func (s *ConstructionAPIService) ConstructionParse(
 		}
 
 		tx.From = msg.From().Hex()
-		fmt.Printf("testyj: %s", tx.From)
 	}
 
 	// Ensure valid from address

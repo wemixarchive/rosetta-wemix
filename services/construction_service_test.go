@@ -24,7 +24,6 @@ import (
 	"github.com/wemixarchive/rosetta-wemix/configuration"
 	mocks "github.com/wemixarchive/rosetta-wemix/mocks/services"
 	"github.com/wemixarchive/rosetta-wemix/wemix"
-	// "github.com/metadium/rosetta-metadium/params"
 
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/ethereum/go-ethereum/common"

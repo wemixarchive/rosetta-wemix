@@ -2,7 +2,7 @@
   "block": {
     "block_identifier": {
         "index": 10992,
-        "hash": "0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02"
+        "hash": "0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd"
     },
     "parent_block_identifier": {
         "index": 10991,
@@ -11,7 +11,7 @@
     "timestamp": 1552946974000,
     "transactions": [{
         "transaction_identifier": {
-            "hash": "0x136457ca66ab5852a8fec5acfbd0782f4d0620d31bd0d18b26998a18eb6acf02"
+            "hash": "0xf6240d887224149baf5c5bfa3836ff4d64faa0ef65c2c8cbb0b6a6106eb0c8bd"
         },
         "operations": [
           {

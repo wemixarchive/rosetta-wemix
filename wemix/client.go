@@ -1476,6 +1476,7 @@ func (ec *Client) Balance(
 				}
 			}
 		}`, blockQuery, account.Address))
+
 	if err != nil {
 		return nil, err
 	}
