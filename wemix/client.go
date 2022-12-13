@@ -302,6 +302,7 @@ func (ec *Client) Block(
 	blockIdentifier *RosettaTypes.PartialBlockIdentifier,
 ) (*RosettaTypes.Block, error) {
 	if blockIdentifier != nil {
+
 		if blockIdentifier.Hash != nil {
 			return ec.getParsedBlock(ctx, "eth_getBlockByHash", *blockIdentifier.Hash, true)
 		}
@@ -427,6 +428,19 @@ func (ec *Client) getBlock(
 		return nil, nil, ethereum.NotFound
 	}
 
+	i, _ := strconv.ParseInt(args[0].(string), 0, 64)
+
+	if i == GenesisBlockIndex {
+		params.ConsensusMethod = params.ConsensusPoW
+	}
+
+	if 0 < i && i < 10 {
+		time.Sleep(2 * time.Second)
+		params.ConsensusMethod = params.ConsensusPoA
+	}
+
+	log.Printf("[getBlock] args: %d, consensusMethod: %d", i, params.ConsensusMethod)
+
 	// Decode header and transactions
 	var head types.Header
 	var body rpcBlock
@@ -437,10 +451,12 @@ func (ec *Client) getBlock(
 		return nil, nil, err
 	}
 
-	uncles, err := ec.getUncles(ctx, &head, &body)
-	if err != nil {
-		return nil, nil, fmt.Errorf("%w: unable to get uncles", err)
-	}
+	var uncles []*EthTypes.Header
+
+	//uncles, err := ec.getUncles(ctx, &head, &body)
+	//if err != nil {
+	//	return nil, nil, fmt.Errorf("%w: unable to get uncles", err)
+	//}
 
 	// Get all transaction receipts
 	receipts, err := ec.getBlockReceipts(ctx, body.Hash, body.Transactions)
@@ -1143,6 +1159,7 @@ func (ec *Client) getParsedBlock(
 	*RosettaTypes.Block,
 	error,
 ) {
+
 	block, loadedTransactions, err := ec.getBlock(ctx, blockMethod, args...)
 	if err != nil {
 		return nil, fmt.Errorf("%w: could not get block", err)
@@ -1284,7 +1301,7 @@ func (ec *Client) miningReward(
 
 type Reward struct {
 	Addr   common.Address `json:"addr"`
-	Reward int64          `json:"reward"`
+	Reward uint64         `json:"reward"`
 }
 
 func (ec *Client) blockRewardTransaction(
@@ -1304,7 +1321,7 @@ func (ec *Client) blockRewardTransaction(
 					Address: MustChecksum(r.Addr.Hex()),
 				},
 				Amount: &RosettaTypes.Amount{
-					Value:    strconv.FormatInt(r.Reward, 10),
+					Value:    strconv.FormatUint(r.Reward, 10),
 					Currency: Currency,
 				},
 			}

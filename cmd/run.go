@@ -18,6 +18,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum/params"
 	"log"
 	"net/http"
 	"time"
@@ -110,6 +111,8 @@ func runRunCmd(cmd *cobra.Command, args []string) error {
 		WriteTimeout: writeTimeout,
 		IdleTimeout:  idleTimeout,
 	}
+
+	params.ConsensusMethod = params.ConsensusPoA
 
 	g.Go(func() error {
 		log.Printf("server listening on port %d", cfg.Port)
