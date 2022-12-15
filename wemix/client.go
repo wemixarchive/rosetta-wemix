@@ -19,10 +19,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum/common/math"
 	"log"
 	"math/big"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	RosettaTypes "github.com/coinbase/rosetta-sdk-go/types"
@@ -949,12 +951,33 @@ type loadedTransaction struct {
 }
 
 func feeOps(tx *loadedTransaction) []*RosettaTypes.Operation {
+	return []*RosettaTypes.Operation{
+		{
+			OperationIdentifier: &RosettaTypes.OperationIdentifier{
+				Index: 0,
+			},
+			Type:   FeeOpType,
+			Status: RosettaTypes.String(SuccessStatus),
+			Account: &RosettaTypes.AccountIdentifier{
+				Address: MustChecksum(tx.From.String()),
+			},
+			Amount: &RosettaTypes.Amount{
+				Value:    new(big.Int).Neg(tx.FeeAmount).String(),
+				Currency: Currency,
+			},
+		},
+	}
+}
+
+/*
+func feeOps(tx *loadedTransaction) []*RosettaTypes.Operation {
 	var minerEarnedAmount *big.Int
 	if tx.FeeBurned == nil {
 		minerEarnedAmount = tx.FeeAmount
 	} else {
 		minerEarnedAmount = new(big.Int).Sub(tx.FeeAmount, tx.FeeBurned)
 	}
+
 	ops := []*RosettaTypes.Operation{
 		{
 			OperationIdentifier: &RosettaTypes.OperationIdentifier{
@@ -1010,6 +1033,7 @@ func feeOps(tx *loadedTransaction) []*RosettaTypes.Operation {
 	}
 	return append(ops, burntOp)
 }
+*/
 
 // transactionReceipt returns the receipt of a transaction by transaction hash.
 // Note that the receipt is not available for pending transactions.
@@ -1205,6 +1229,7 @@ func (ec *Client) populateTransactions(
 		0,
 	)
 	var rewards []*Reward
+
 	if len(block.Rewards()) > 0 {
 		if err := json.Unmarshal(block.Rewards(), &rewards); err != nil {
 			return nil, err
@@ -1212,6 +1237,12 @@ func (ec *Client) populateTransactions(
 		transactions = append(transactions, ec.blockRewardTransaction(
 			blockIdentifier,
 			rewards,
+		))
+	} else if block.Fees() != nil && block.Fees().Int64() > int64(0) {
+		transactions = append(transactions, ec.blockRewardForMinerTransaction(
+			blockIdentifier,
+			block.Coinbase().String(),
+			block.Fees(),
 		))
 	}
 	for _, tx := range loadedTransactions {
@@ -1228,9 +1259,7 @@ func (ec *Client) populateTransactions(
 	return transactions, nil
 }
 
-func (ec *Client) populateTransaction(
-	tx *loadedTransaction,
-) (*RosettaTypes.Transaction, error) {
+func (ec *Client) populateTransaction(tx *loadedTransaction) (*RosettaTypes.Transaction, error) {
 	var ops []*RosettaTypes.Operation
 
 	// Compute fee operations
@@ -1328,6 +1357,37 @@ func (ec *Client) blockRewardTransaction(
 			ops = append(ops, miningRewardOp)
 		}
 	}
+	return &RosettaTypes.Transaction{
+		TransactionIdentifier: &RosettaTypes.TransactionIdentifier{
+			Hash: blockIdentifier.Hash,
+		},
+		Operations: ops,
+	}
+}
+
+func (ec *Client) blockRewardForMinerTransaction(
+	blockIdentifier *RosettaTypes.BlockIdentifier,
+	miner string,
+	fees *big.Int,
+) *RosettaTypes.Transaction {
+	var ops []*RosettaTypes.Operation
+
+	miningRewardOp := &RosettaTypes.Operation{
+		OperationIdentifier: &RosettaTypes.OperationIdentifier{
+			Index: 0,
+		},
+		Type:   BlockRewardOpType,
+		Status: RosettaTypes.String(SuccessStatus),
+		Account: &RosettaTypes.AccountIdentifier{
+			Address: MustChecksum(miner),
+		},
+		Amount: &RosettaTypes.Amount{
+			Value:    strconv.FormatInt(fees.Int64(), 10),
+			Currency: Currency,
+		},
+	}
+	ops = append(ops, miningRewardOp)
+
 	return &RosettaTypes.Transaction{
 		TransactionIdentifier: &RosettaTypes.TransactionIdentifier{
 			Hash: blockIdentifier.Hash,
@@ -1452,12 +1512,87 @@ type graphqlBalance struct {
 			Hash    string `json:"hash"`
 			Number  int64  `json:"number"`
 			Account struct {
-				Balance string `json:"balance"`
-				Nonce   string `json:"transactionCount"`
-				Code    string `json:"code"`
+				Balance *big.Int `json:"balance"`
+				Nonce   *big.Int `json:"transactionCount"`
+				Code    string   `json:"code"`
 			} `json:"account"`
 		} `json:"block"`
 	} `json:"data"`
+}
+
+// UnmarshalJSON is a custom unmarshaler for Call.
+func (t *graphqlBalance) UnmarshalJSON(input []byte) error {
+
+	type CustomBalance struct {
+		Errors []struct {
+			Message string   `json:"message"`
+			Path    []string `json:"path"`
+		} `json:"errors"`
+		Data struct {
+			Block struct {
+				Hash    string      `json:"hash"`
+				Number  BlockNumber `json:"number"`
+				Account struct {
+					Balance *hexutil.Big `json:"balance"`
+					Nonce   *hexutil.Big `json:"transactionCount"`
+					Code    string       `json:"code"`
+				} `json:"account"`
+			} `json:"block"`
+		} `json:"data"`
+	}
+	var dec CustomBalance
+	if err := json.Unmarshal(input, &dec); err != nil {
+		return err
+	}
+	t.Errors = dec.Errors
+	t.Data.Block.Hash = dec.Data.Block.Hash
+	t.Data.Block.Number = (int64)(dec.Data.Block.Number)
+	/*
+	   if dec.Data.Block.Number != nil {
+	           t.Data.Block.Number = (*big.Int)(dec.Data.Block.Number)
+	   }else{
+	           return errors.New("missing required field 'number'")
+	   }
+	*/
+	if dec.Data.Block.Account.Balance != nil {
+		t.Data.Block.Account.Balance = (*big.Int)(dec.Data.Block.Account.Balance)
+	} else {
+		return errors.New("missing required field 'block.account.balance'")
+	}
+	if dec.Data.Block.Account.Nonce != nil {
+		t.Data.Block.Account.Nonce = (*big.Int)(dec.Data.Block.Account.Nonce)
+	} else {
+		return errors.New("missing required field 'block.account.nounce'")
+	}
+	t.Data.Block.Account.Code = dec.Data.Block.Account.Code
+
+	return nil
+}
+
+type BlockNumber int64
+
+func (bn *BlockNumber) UnmarshalJSON(data []byte) error {
+	input := strings.TrimSpace(string(data))
+	if len(input) >= 2 && input[0] == '"' && input[len(input)-1] == '"' {
+		input = input[1 : len(input)-1]
+
+		blckNum, err := hexutil.DecodeUint64(input)
+		if err != nil {
+			return err
+		}
+		if blckNum > math.MaxInt64 {
+
+			return errors.New("block number larger than int64")
+		}
+		*bn = BlockNumber(blckNum)
+	} else {
+		i, err := strconv.ParseInt(input, 10, 64)
+		if err != nil {
+			return fmt.Errorf("block number is not int64")
+		}
+		*bn = BlockNumber(i)
+	}
+	return nil
 }
 
 // Balance returns the balance of a *RosettaTypes.AccountIdentifier
@@ -1507,20 +1642,25 @@ func (ec *Client) Balance(
 		return nil, errors.New(RosettaTypes.PrintStruct(bal.Errors))
 	}
 
-	balance, ok := new(big.Int).SetString(bal.Data.Block.Account.Balance[2:], 16)
-	if !ok {
-		return nil, fmt.Errorf(
-			"could not extract account balance from %s",
-			bal.Data.Block.Account.Balance,
-		)
-	}
-	nonce, ok := new(big.Int).SetString(bal.Data.Block.Account.Nonce[2:], 16)
-	if !ok {
-		return nil, fmt.Errorf(
-			"could not extract account nonce from %s",
-			bal.Data.Block.Account.Nonce,
-		)
-	}
+	/*
+		balance, ok := new(big.Int).SetString(bal.Data.Block.Account.Balance[2:], 16)
+		if !ok {
+			return nil, fmt.Errorf(
+				"could not extract account balance from %s",
+				bal.Data.Block.Account.Balance,
+			)
+		}
+		nonce, ok := new(big.Int).SetString(bal.Data.Block.Account.Nonce[2:], 16)
+		if !ok {
+			return nil, fmt.Errorf(
+				"could not extract account nonce from %s",
+				bal.Data.Block.Account.Nonce,
+			)
+		}
+	*/
+
+	balance := bal.Data.Block.Account.Balance
+	nonce := bal.Data.Block.Account.Nonce
 
 	return &RosettaTypes.AccountBalanceResponse{
 		Balances: []*RosettaTypes.Amount{
