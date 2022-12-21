@@ -610,42 +610,104 @@ func (ec *Client) getBlockReceipts(
 	blockHash common.Hash,
 	txs []rpcTransaction,
 ) ([]*types.Receipt, error) {
+	//start := time.Now()
+	//log.Printf("getBlockReceipts(): 1.Start - %s\n", time.Since(start))
 	receipts := make([]*types.Receipt, len(txs))
 	if len(txs) == 0 {
 		return receipts, nil
 	}
+	//log.Printf("getBlockReceipts(): 2.after check Length of txs: %d - %s\n", len(txs), time.Since(start))
 
-	reqs := make([]rpc.BatchElem, len(txs))
-	for i := range reqs {
-		reqs[i] = rpc.BatchElem{
+	totalReqs := make([]rpc.BatchElem, len(txs))
+
+	for i := range totalReqs {
+		totalReqs[i] = rpc.BatchElem{
 			Method: "eth_getTransactionReceipt",
 			Args:   []interface{}{txs[i].tx.Hash().Hex()},
 			Result: &receipts[i],
 		}
 	}
-	if err := ec.c.BatchCallContext(ctx, reqs); err != nil {
-		return nil, err
-	}
-	for i := range reqs {
-		if reqs[i].Error != nil {
-			return nil, reqs[i].Error
+	loopCount := 0
+	onceRequestSize := 1000
+	for i := 0; i < len(totalReqs); i += onceRequestSize {
+
+		end := i + onceRequestSize
+
+		if end > len(totalReqs) {
+			end = len(totalReqs)
 		}
-		if receipts[i] == nil {
-			return nil, fmt.Errorf("got empty receipt for %x", txs[i].tx.Hash().Hex())
+		loopCount++
+		reqs := totalReqs[i:end]
+		//log.Printf("getBlockReceipts(): 3.before BatchCallContext(%d) - %s\n", loopCount, time.Since(start))
+		if err := ec.c.BatchCallContext(ctx, reqs); err != nil {
+			return nil, err
+		}
+		//log.Printf("getBlockReceipts(): 4.after BatchCallContext(%d) - %s\n", loopCount, time.Since(start))
+		for i := range reqs {
+			if reqs[i].Error != nil {
+				return nil, reqs[i].Error
+			}
+			if receipts[i] == nil {
+				return nil, fmt.Errorf("got empty receipt for %x", txs[i].tx.Hash().Hex())
+			}
+
+			if receipts[i].BlockHash != blockHash {
+				return nil, fmt.Errorf(
+					"%w: expected block hash %s for transaction but got %s",
+					ErrBlockOrphaned,
+					blockHash.Hex(),
+					receipts[i].BlockHash.Hex(),
+				)
+			}
 		}
 
-		if receipts[i].BlockHash != blockHash {
-			return nil, fmt.Errorf(
-				"%w: expected block hash %s for transaction but got %s",
-				ErrBlockOrphaned,
-				blockHash.Hex(),
-				receipts[i].BlockHash.Hex(),
-			)
-		}
 	}
+	//log.Printf("getBlockReceipts(): 5.after parsing response(%d) - %s\n", loopCount, time.Since(start))
 
 	return receipts, nil
 }
+
+//func (ec *Client) getBlockReceipts(
+//	ctx context.Context,
+//	blockHash common.Hash,
+//	txs []rpcTransaction,
+//) ([]*types.Receipt, error) {
+//	receipts := make([]*types.Receipt, len(txs))
+//	if len(txs) == 0 {
+//		return receipts, nil
+//	}
+//
+//	reqs := make([]rpc.BatchElem, len(txs))
+//	for i := range reqs {
+//		reqs[i] = rpc.BatchElem{
+//			Method: "eth_getTransactionReceipt",
+//			Args:   []interface{}{txs[i].tx.Hash().Hex()},
+//			Result: &receipts[i],
+//		}
+//	}
+//	if err := ec.c.BatchCallContext(ctx, reqs); err != nil {
+//		return nil, err
+//	}
+//	for i := range reqs {
+//		if reqs[i].Error != nil {
+//			return nil, reqs[i].Error
+//		}
+//		if receipts[i] == nil {
+//			return nil, fmt.Errorf("got empty receipt for %x", txs[i].tx.Hash().Hex())
+//		}
+//
+//		if receipts[i].BlockHash != blockHash {
+//			return nil, fmt.Errorf(
+//				"%w: expected block hash %s for transaction but got %s",
+//				ErrBlockOrphaned,
+//				blockHash.Hex(),
+//				receipts[i].BlockHash.Hex(),
+//			)
+//		}
+//	}
+//
+//	return receipts, nil
+//}
 
 type rpcCall struct {
 	Result *Call `json:"result"`

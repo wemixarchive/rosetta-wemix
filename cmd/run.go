@@ -37,16 +37,16 @@ import (
 const (
 	// readTimeout is the maximum duration for reading the entire
 	// request, including the body.
-	readTimeout = 5 * time.Second
+	readTimeout = 60 * time.Second
 
 	// writeTimeout is the maximum duration before timing out
 	// writes of the response. It is reset whenever a new
 	// request's header is read.
-	writeTimeout = 120 * time.Second
+	writeTimeout = 600 * time.Second
 
 	// idleTimeout is the maximum amount of time to wait for the
 	// next request when keep-alives are enabled.
-	idleTimeout = 30 * time.Second
+	idleTimeout = 600 * time.Second
 )
 
 var (
