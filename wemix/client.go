@@ -43,7 +43,7 @@ import (
 )
 
 const (
-	gwemixHTTPTimeout = 120 * time.Second
+	gwemixHTTPTimeout = 3000 * time.Second
 
 	maxTraceConcurrency  = int64(16) // nolint:gomnd
 	semaphoreTraceWeight = int64(1)  // nolint:gomnd
@@ -1018,11 +1018,9 @@ func feeOps(tx *loadedTransaction) []*RosettaTypes.Operation {
 			OperationIdentifier: &RosettaTypes.OperationIdentifier{
 				Index: 0,
 			},
-			Type:   FeeOpType,
-			Status: RosettaTypes.String(SuccessStatus),
-			Account: &RosettaTypes.AccountIdentifier{
-				Address: MustChecksum(tx.From.String()),
-			},
+			Type:    FeeOpType,
+			Status:  RosettaTypes.String(SuccessStatus),
+			Account: &RosettaTypes.AccountIdentifier{Address: MustChecksum(tx.From.String())},
 			Amount: &RosettaTypes.Amount{
 				Value:    new(big.Int).Neg(tx.FeeAmount).String(),
 				Currency: Currency,

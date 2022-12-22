@@ -1,6 +1,6 @@
 request_funds(1){
   find_account{
-    currency = {"symbol":"ETH", "decimals":18};
+    currency = {"symbol":"WEMIX", "decimals":18};
     random_account = find_balance({
       "minimum_balance":{
         "value": "0",
@@ -26,7 +26,7 @@ request_funds(1){
 
 create_account(1){
   create{
-    network = {"network":"Ropsten", "blockchain":"Ethereum"};
+    network = {"network":"Testnet", "blockchain":"Wemix"};
     key = generate_key({"curve_type": "secp256k1"});
     account = derive({
       "network_identifier": {{network}},
@@ -38,13 +38,14 @@ create_account(1){
       "account_identifier": {{account.account_identifier}},
       "keypair": {{key}}
     });
+    print_message({"--- created": {{key}}});
   }
 }
 
 transfer(10){
   transfer{
-    transfer.network = {"network":"Ropsten", "blockchain":"Ethereum"};
-    currency = {"symbol":"ETH", "decimals":18};
+    transfer.network = {"network":"Testnet", "blockchain":"Wemix"};
+    currency = {"symbol":"WEMIX", "decimals":18};
     sender = find_balance({
       "minimum_balance":{
         "value": "10000000000000000",
@@ -96,8 +97,8 @@ transfer(10){
 return_funds(10){
   // TODO: add suggested fee dry run to ensure account fully cleared
   transfer{
-    transfer.network = {"network":"Ropsten", "blockchain":"Ethereum"};
-    currency = {"symbol":"ETH", "decimals":18};
+    transfer.network = {"network":"Testnet", "blockchain":"Wemix"};
+    currency = {"symbol":"WEMIX", "decimals":18};
     max_fee = "84000000000000";
     sender = find_balance({
       "minimum_balance":{
