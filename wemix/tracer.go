@@ -28,7 +28,7 @@ const (
 )
 
 var (
-	tracerTimeout = "120s"
+	tracerTimeout = "1000s"
 )
 
 func loadTraceConfig() (*tracers.TraceConfig, error) {

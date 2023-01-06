@@ -43,7 +43,7 @@ import (
 )
 
 const (
-	gwemixHTTPTimeout = 3000 * time.Second
+	gwemixHTTPTimeout = 30000 * time.Second
 
 	maxTraceConcurrency  = int64(16) // nolint:gomnd
 	semaphoreTraceWeight = int64(1)  // nolint:gomnd
@@ -580,6 +580,7 @@ func (ec *Client) getBlockTraces(
 	blockHash common.Hash,
 ) ([]*rpcCall, []*rpcRawCall, error) {
 	if err := ec.traceSemaphore.Acquire(ctx, semaphoreTraceWeight); err != nil {
+		log.Printf("[getBlockTraces] semaphoreTraceWeight: %d", semaphoreTraceWeight)
 		return nil, nil, err
 	}
 	defer ec.traceSemaphore.Release(semaphoreTraceWeight)

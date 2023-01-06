@@ -1,112 +1,412 @@
 [
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000000"
+   "address": "0x02b4B2d83786C8eE315db2DdAC704794850D2149"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000001"
+   "address": "0x0669E39dB79Ab23289De32119aAaCF17c7E0613d"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000002"
+   "address": "0x0Ab3E9363b7a86E1b382be857aE6F06De2f4A59C"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000003"
+   "address": "0x0e95f54FD07D82e76d35e540e5a3e39cfeb0501B"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000004"
+   "address": "0x162153b98D314416D8AC6006A51F8a0fB8F9bC99"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000005"
+   "address": "0x2204B641CbC7653e14D849Cc511F06C67f4A73b9"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000006"
+   "address": "0x26EDD258e14ea24c14556D480b93EBE205F0cc55"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000007"
+   "address": "0x28770748ccb3E63457d507E13F86F79494c0432a"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000008"
+   "address": "0x2BdFF998c33F9b31EF60eCf07F15580D65eD493e"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x0000000000000000000000000000000000000009"
+   "address": "0x452893eD818C0e3ea6f415AEaB8eF08778087FC6"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1"
+  "value": "25000000000000000000000000"
  },
  {
   "account_identifier": {
-   "address": "0x874B54A8bD152966d63F706BAE1FfeB0411921E5"
+   "address": "0x4D758C2d5074cbeCe8C09227912c019d16E954e4"
   },
   "currency": {
-   "symbol": "ETH",
+   "symbol": "WEMIX",
    "decimals": 18
   },
-  "value": "1000000000000000000000000000000"
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x51302C14379f918e748E397A39ff6252700Ef313"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x53C1cf9e9c8cFBd947168147ECac23461008ed8d"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x579D46D5D743AEaec9DFd73F508Fa43e5B564dB8"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x57BfD8E8ce95fd8FEfcaAc5f54ECc7afe6bd3DCC"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x5b4366EFA6aE8d13Da6e1b70F7BbE3d140d3E859"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x714475D5267dBB5185F41eA02b423AAfC6E0ebc5"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x76C6E4A0a2A141343c370D5d36276DA643B0c829"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "1000000000000000000000000000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x790e8997f23F9D7486Bd5a6f718Cf2f76055Ae35"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x7c816D1B6171805fe024D7afc48D1eb96d10a9F2"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x7cc486624B262ECA94fCE1B5be8816e74D6E2A95"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x8C16D0854A5F7B8558CF6d412E49ff7CC3f448a2"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x8DDc121bC1f6b12230951eb399D69659Fdf3D095"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x98bfdB2BE2f7Cd59026A662400752482c531c78d"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x9A8159EC53eAB821Ae576e1b688371D873580a23"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0x9b8D30Cb0055C7a37A0c753Ac4A11259BC38023a"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xAAdA7E4A59f42EE451e2dDB2cc5370822D5C2916"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xB16D2494FDDFa4c000dEAF642D47673e5CA74e07"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xB9a51eD47e506b92C6875080C11cbEc81223c3A0"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xBa8F53833e43b8Dbc8722cdd9F21140851de9cc5"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xC2C6f586dA3bc20A01f5f6891f402f08Ecfb2C7F"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xC63Bb837c3B2769CaE3231dea25bebf2338Af6Fd"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xDcb0f614fca0D8818887CF61cE4521Ab920798b8"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xE84Cd864525A540F3Ab447Bd99Cc6F82bF88F87d"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xF04f49b134996023E980022502581c7278f3191A"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xF4404494Ab647d29a62C57118C3A739C521Fa004"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xaDB1B141E3990C8Cf8301e58D83014A6E6E09d9b"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xbdB7BC69503c30bA16E8a7D0aa418527B010C20b"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xcD0FFea12deE752dEF932378124438AeB8Ea96c6"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xe0469bd6eF774385948BD18d1F4971CBD74C2a28"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
+ },
+ {
+  "account_identifier": {
+   "address": "0xf6B4E22FB85d4B20b568409D91520a4745A537Bf"
+  },
+  "currency": {
+   "symbol": "WEMIX",
+   "decimals": 18
+  },
+  "value": "25000000000000000000000000"
  }
 ]
