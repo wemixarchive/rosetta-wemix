@@ -1476,7 +1476,7 @@ func (ec *Client) miningReward(
 
 type Reward struct {
 	Addr   common.Address `json:"addr"`
-	Reward uint64         `json:"reward"`
+	Reward *big.Int       `json:"reward"`
 }
 
 func (ec *Client) blockRewardTransaction(
@@ -1496,7 +1496,7 @@ func (ec *Client) blockRewardTransaction(
 					Address: MustChecksum(r.Addr.Hex()),
 				},
 				Amount: &RosettaTypes.Amount{
-					Value:    strconv.FormatUint(r.Reward, 10),
+					Value:    r.Reward.String(),
 					Currency: Currency,
 				},
 			}
