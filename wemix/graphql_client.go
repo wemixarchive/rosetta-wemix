@@ -26,9 +26,9 @@ import (
 )
 
 const (
-	graphQLIdleConnectionTimeout = 30 * time.Second
-	graphQLMaxIdle               = 100
-	graphQLHTTPTimeout           = 15 * time.Second
+	graphQLIdleConnectionTimeout = 3000 * time.Second
+	graphQLMaxIdle               = 1000
+	graphQLHTTPTimeout           = 1500 * time.Second
 	graphQLPath                  = "graphql"
 )
 
