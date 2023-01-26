@@ -1,32 +1,44 @@
 {
   "network": {
-    "blockchain": "Ethereum",
-    "network": "Ropsten"
+    "blockchain": "Wemix",
+    "network": "Testnet"
   },
-  "data_directory": "cli-data",
-  "http_timeout": 300,
+  "online_url": "http://localhost:8080",
+  "data_directory": "cli-data-new",
+  "http_timeout": 1000,
   "max_retries": 15,
-  "max_online_connections": 500,
-  "max_sync_concurrency": 64,
+  "max_online_connections": 128,
+  "max_reorg_depth": 0,
   "tip_delay": 120,
-  "compression_disabled":true,
-  "memory_limit_disabled":true,
-  "construction": {
-    "stale_depth": 3,
-    "broadcast_limit": 5,
-    "constructor_dsl_file": "ethereum.ros",
-    "end_conditions": {
-      "create_account": 10,
-      "transfer": 20
-    }
-  },
+  "compression_disabled": true,
+  "construction": null,
+  "log_configuration": true,
+  "max_sync_concurrency": 16,
+  "all_in_memory_enabled": false,
+  "l0_in_memory_enabled": true,
+  "table_size": 10,
   "data": {
-    "initial_balance_fetch_disabled":true,
-    "active_reconciliation_concurrency": 32,
+    "active_reconciliation_concurrency": 16,
+    "inactive_reconciliation_concurrency": 4,
+    "inactive_reconciliation_frequency": 250,
+    "inactive_discrepancy_search_disabled": false,
+    "initial_balance_fetch_disabled": false,
+    "historical_balance_disabled": false,
+    "ignore_reconciliation_error": false,
+    "reconciliation_disabled": false,
+    "reconciliation_drain_disabled": false,
+    "balance_tracking_disabled": false,
+    "pruning_balance_disabled": true,
+    "pruning_block_disabled": false,
+    "exempt_accounts": "exempt_accounts.json",
     "bootstrap_balances": "bootstrap_balances.json",
+    "log_blocks": false,
+    "log_transactions": false,
+    "log_balance_changes": false,
+    "log_reconciliations": false,
     "end_conditions": {
       "reconciliation_coverage": {
-        "coverage": 0.95,
+        "coverage": 0.70,
         "from_tip": true
       }
     }
