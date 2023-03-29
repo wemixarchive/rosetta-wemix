@@ -83,4 +83,5 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/ethereum/go-ethereum => github.com/wemixarchive/go-wemix v1.8.24-0.20221025153556-f7727922af66
+// replace github.com/ethereum/go-ethereum => github.com/wemixarchive/go-wemix v1.8.24-0.20221025153556-f7727922af66
+replace github.com/ethereum/go-ethereum => ../yj-go-wemix

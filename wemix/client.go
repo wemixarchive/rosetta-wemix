@@ -441,7 +441,7 @@ func (ec *Client) getBlock(
 		params.ConsensusMethod = params.ConsensusPoA
 	}
 
-	log.Printf("[getBlock] args: %d, consensusMethod: %d", i, params.ConsensusMethod)
+	// log.Printf("[getBlock] args: %d, consensusMethod: %d", i, params.ConsensusMethod)
 
 	// Decode header and transactions
 	var head types.Header
@@ -453,11 +453,11 @@ func (ec *Client) getBlock(
 		return nil, nil, err
 	}
 
-	tmp, err := json.Marshal(head)
-	log.Printf("getBlock(): head: ", string(tmp))
-
-	tmp2, err := json.Marshal(body)
-	log.Printf("getBlock(): body: ", string(tmp2))
+	//tmp, err := json.Marshal(head)
+	//log.Printf("getBlock(): head: ", string(tmp))
+	//
+	//tmp2, err := json.Marshal(body)
+	//log.Printf("getBlock(): body: ", string(tmp2))
 
 	var uncles []*EthTypes.Header
 
@@ -472,8 +472,8 @@ func (ec *Client) getBlock(
 		return nil, nil, fmt.Errorf("%w: could not get receipts for %x", err, body.Hash[:])
 	}
 
-	tmp3, err := json.Marshal(receipts)
-	log.Printf("getBlock(): receipts: ", string(tmp3))
+	//tmp3, err := json.Marshal(receipts)
+	//log.Printf("getBlock(): receipts: ", string(tmp3))
 
 	// Get block traces (not possible to make idempotent block transaction trace requests)
 	//
@@ -491,8 +491,8 @@ func (ec *Client) getBlock(
 		}
 	}
 
-	tmp4, err := json.Marshal(traces)
-	log.Printf("getBlock(): traces: ", string(tmp4))
+	//tmp4, err := json.Marshal(traces)
+	//log.Printf("getBlock(): traces: ", string(tmp4))
 
 	// Convert all txs to loaded txs
 	txs := make([]*types.Transaction, len(body.Transactions))
@@ -592,12 +592,12 @@ func (ec *Client) getBlockTraces(
 	blockHash common.Hash,
 ) ([]*rpcCall, []*rpcRawCall, error) {
 	if err := ec.traceSemaphore.Acquire(ctx, semaphoreTraceWeight); err != nil {
-		log.Printf("[getBlockTraces] semaphoreTraceWeight: %d", semaphoreTraceWeight)
+		// log.Printf("[getBlockTraces] semaphoreTraceWeight: %d", semaphoreTraceWeight)
 		return nil, nil, err
 	}
 	defer ec.traceSemaphore.Release(semaphoreTraceWeight)
 
-	log.Printf("[getBlockTraces] start.")
+	// log.Printf("[getBlockTraces] start.")
 
 	var calls []*rpcCall
 	var rawCalls []*rpcRawCall
@@ -607,8 +607,8 @@ func (ec *Client) getBlockTraces(
 		return nil, nil, err
 	}
 
-	tm, err := json.Marshal(raw)
-	log.Printf("[getBlockTraces] raw: %+v", string(tm))
+	//tm, err := json.Marshal(raw)
+	//log.Printf("[getBlockTraces] raw: %+v", string(tm))
 
 	// Decode []*rpcCall
 	if err := json.Unmarshal(raw, &calls); err != nil {
@@ -620,9 +620,9 @@ func (ec *Client) getBlockTraces(
 		return nil, nil, err
 	}
 
-	tmp, err := json.Marshal(calls)
-	tmp1, err := json.Marshal(rawCalls)
-	log.Printf("[getBlockTraces] calls: %+v, rawCalls: %+v", string(tmp), string(tmp1))
+	//tmp, err := json.Marshal(calls)
+	//tmp1, err := json.Marshal(rawCalls)
+	//log.Printf("[getBlockTraces] calls: %+v, rawCalls: %+v", string(tmp), string(tmp1))
 
 	return calls, rawCalls, nil
 }
@@ -725,13 +725,13 @@ func (ec *Client) getBlockReceipts(
 	blockHash common.Hash,
 	txs []rpcTransaction,
 ) ([]*Receipt, error) {
-	start := time.Now()
-	log.Printf("getBlockReceipts(): 1.Start - %s\n", time.Since(start))
+	//start := time.Now()
+	// log.Printf("getBlockReceipts(): 1.Start - %s\n", time.Since(start))
 	receipts := make([]*Receipt, len(txs))
 	if len(txs) == 0 {
 		return receipts, nil
 	}
-	log.Printf("getBlockReceipts(): 2.after check Length of txs: %d - %s, hash: %s \n", len(txs), time.Since(start), blockHash.String())
+	// log.Printf("getBlockReceipts(): 2.after check Length of txs: %d - %s, hash: %s \n", len(txs), time.Since(start), blockHash.String())
 
 	err := ec.c.CallContext(ctx, &receipts, "eth_getReceiptsByHash", blockHash)
 
@@ -739,8 +739,8 @@ func (ec *Client) getBlockReceipts(
 		log.Printf("%+v: could not get receipts", err)
 	}
 
-	tmp, err := json.Marshal(receipts)
-	log.Printf("[getBlockReceipts] receipts: %s", string(tmp))
+	//tmp, err := json.Marshal(receipts)
+	//log.Printf("[getBlockReceipts] receipts: %s", string(tmp))
 
 	/*
 	   totalReqs := make([]rpc.BatchElem, len(txs))
@@ -1098,6 +1098,26 @@ type loadedTransaction struct {
 }
 
 func feeOps(tx *loadedTransaction) []*RosettaTypes.Operation {
+	// fee delegation test
+	if tx.Transaction.FeePayer() != nil {
+		return []*RosettaTypes.Operation{
+			{
+				OperationIdentifier: &RosettaTypes.OperationIdentifier{
+					Index: 0,
+				},
+				Type:   FeeOpType,
+				Status: RosettaTypes.String(SuccessStatus),
+				Account: &RosettaTypes.AccountIdentifier{
+					Address: MustChecksum(tx.Transaction.FeePayer().String()),
+				},
+				Amount: &RosettaTypes.Amount{
+					Value:    new(big.Int).Neg(tx.FeeAmount).String(),
+					Currency: Currency,
+				},
+			},
+		}
+		log.Printf("[feeOps] FeePayer: %s", tx.Transaction.FeePayer().String())
+	}
 	return []*RosettaTypes.Operation{
 		{
 			OperationIdentifier: &RosettaTypes.OperationIdentifier{
@@ -1808,9 +1828,9 @@ func (ec *Client) Balance(
 	balance := bal.Data.Block.Account.Balance
 	nonce := bal.Data.Block.Account.Nonce
 
-	tmp, err := json.Marshal(balance)
-	tmp1, err := json.Marshal(nonce)
-	log.Printf("Balance(): account: %s, balance: %s, nonce: %s, index: %d", account.Address, string(tmp), string(tmp1), *block.Index)
+	//tmp, err := json.Marshal(balance)
+	//tmp1, err := json.Marshal(nonce)
+	// log.Printf("Balance(): account: %s, balance: %s, nonce: %s, index: %d", account.Address, string(tmp), string(tmp1), *block.Index)
 
 	return &RosettaTypes.AccountBalanceResponse{
 		Balances: []*RosettaTypes.Amount{
